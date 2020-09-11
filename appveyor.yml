@@ -1,5 +1,7 @@
 environment:
   TWINE_USERNAME: __token__
+  CIBW_SKIP: cp27-* cp35-* cp36-* cp38-*
+
   # Note: TWINE_PASSWORD is set to an API token in Appveyor settings
 
 build_script:
@@ -8,6 +10,8 @@ build_script:
   - >
     IF "%APPVEYOR_REPO_TAG%" == "true"
     (
+    echo Tag name: --%APPVEYOR_REPO_TAG_NAME%--
+    &&
     python -m pip install twine
     &&
     python -m twine upload wheelhouse/*.whl
